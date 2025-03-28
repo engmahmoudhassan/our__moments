@@ -1,0 +1,248 @@
+/* استايل عام */
+body {
+    font-family: 'Cairo', sans-serif;
+    background: linear-gradient(45deg, #ff4e50, #1f1c2c);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+    position: relative;
+}
+
+/* تأثير الدخول */
+.overlay {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    opacity: 1;
+    animation: fadeOut 2.5s ease-out forwards;
+}
+
+.overlay h1 {
+    font-size: 40px;
+}
+
+@keyframes fadeOut {
+    0% { opacity: 1; }
+    100% { opacity: 0; visibility: hidden; }
+}
+
+/* القلوب المتحركة */
+.hearts-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.heart {
+    position: absolute;
+    color: red;
+    font-size: 30px; /* زيادة الحجم لجعل القلوب أكثر وضوحًا */
+    opacity: 1; /* تقليل الشفافية لجعلها أكثر وضوحًا */
+    animation: float 5s linear infinite;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(100vh) scale(0.7); /* جعلها تبدأ أصغر */
+        opacity: 1; /* جعل القلوب أكثر وضوحًا من البداية */
+    }
+    100% {
+        transform: translateY(-10vh) scale(1.5); /* زيادة الحجم أثناء الحركة */
+        opacity: 0.5; /* تقليل الشفافية قليلاً أثناء الحركة */
+    }
+}
+
+
+/* توسيط الكتاب */
+.container {
+    display: none;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 450px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    perspective: 1500px;
+}
+
+/* الكتاب */
+.book {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    background: linear-gradient(135deg, #ff9a8b, #ff6a88);
+    padding: 0;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+.book img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* الصفحات */
+.page {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    border-radius: 10px;
+    transform-origin: left;
+    backface-visibility: hidden;
+    background: #fff9f0;
+    box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.1);
+    cursor: pointer; /* تغيير المؤشر عند التمرير على الصورة */
+    transition: transform 0.5s ease-in-out; /* تأثير سلس عند التبديل بين الحالتين */
+
+}
+
+/* تأثير التقليب الواقعي */
+.page.flipped {
+    transform: rotateY(180deg);
+    transition: transform 0.5s ease;  /* إضافة انتقالات سلسة */
+}
+
+
+
+/* كل صفحة مقسومة لنصفين */
+.page-content {
+    width: 90%;
+    height: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background: #fafafa;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+    border: 6px solid #d1d1d1;
+    border-radius: 15px;
+    margin: 15px;
+}
+
+/* ضبط حجم الصور */
+.page-content img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* الصفحة الأخيرة */
+.page-content h2 {
+    font-size: 35px;
+    color: #ff6a88;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+
+/* استجابة لأجهزة الهواتف (Redmi Note 8 و Samsung) */
+/* استجابة لأجهزة الهواتف (Redmi Note 8 و Samsung) */
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+
+    .container {
+        width: 100%;
+        height: auto;
+        padding: 10px;
+    }
+
+    .book {
+        width: 100%;
+        height: 100%;
+        padding: 0;
+    }
+
+    .page-content {
+        width: 90%; /* عرض أقل بقليل من الصفحة */
+        height: 80%; /* ارتفاع أقل بقليل */
+        margin: 0 auto; /* مسافة بين الصور */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #fafafa;
+        box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 15px;
+    }
+
+    .page-content img {
+        width: 100%; /* عرض ثابت 100% داخل الصفحة */
+        height: auto; /* الحفاظ على التناسب بين العرض والارتفاع */
+        object-fit: contain; /* التأكد من أن الصورة لا تتشوه */
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .prev-btn, .next-btn {
+        font-size: 18px;
+        padding: 10px 15px;
+    }
+
+    .page-content h2 {
+        font-size: 24px;
+    }
+
+    .overlay h1 {
+        font-size: 28px;
+    }
+
+    h1 {
+        font-size: 10vw; /* تكبير النص على الشاشات الصغيرة */
+    }
+
+    .heart {
+        font-size: 25px; /* تقليل حجم القلوب على الشاشات الصغيرة */
+    }
+}
+
+
+/* تنسيق كلمة "المعركة صعبة" */
+h1 {
+    font-size: 5vw; /* حجم الخط يتناسب مع عرض الشاشة */
+    color: white;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    margin: 20px 0;
+    padding: 10px;
+}
+
+/* استجابة للشاشات الصغيرة */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 8vw; /* زيادة الحجم قليلاً في الشاشات الأصغر */
+    }
+}
+
+/* استجابة لأجهزة الهواتف */
+@media (max-width: 600px) {
+    h1 {
+        font-size: 10vw; /* تكبير النص على الشاشات الصغيرة */
+    }
+}
+
